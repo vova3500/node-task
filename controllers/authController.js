@@ -2,7 +2,9 @@ const User = require('../models/User')
 const {validationResult} = require("express-validator")
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('../config/default.json')
+
+require('dotenv').config();
+
 
 class AuthController {
     async registration(req, res) {
@@ -26,8 +28,8 @@ class AuthController {
 
             await user.save()
 
-            const token = jwt.sign({id: user.id}, config.secretKey, {expiresIn: "1h"})
-            const refreshToken = jwt.sign({id: user.id}, config.secretKey, {expiresIn: "60 days"})
+            const token = jwt.sign({id: user.id}, process.env.SECRET_KEY, {expiresIn: "1h"})
+            const refreshToken = jwt.sign({id: user.id}, process.env.SECRET_KEY, {expiresIn: "60 days"})
 
             res.cookie("refreshToken", refreshToken)
 

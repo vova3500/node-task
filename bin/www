@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 const mongoose = require("mongoose")
+require('dotenv').config();
 
 /**
  * Module dependencies.
@@ -8,7 +9,6 @@ const mongoose = require("mongoose")
 var app = require('../app');
 var debug = require('debug')('express-test-task:server');
 var http = require('http');
-const config = require("../config/default.json");
 
 /**
  * Get port from environment and store in Express.
@@ -93,7 +93,7 @@ function onListening() {
 }
 
 function connectDb() {
-  mongoose.connect(config.dbUrl, {
+  mongoose.connect(process.env.DB_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useFindAndModify: false
