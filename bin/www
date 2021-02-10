@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const mongoose = require("mongoose")
 
 /**
  * Module dependencies.
@@ -7,12 +8,13 @@
 var app = require('../app');
 var debug = require('debug')('express-test-task:server');
 var http = require('http');
+const config = require("../config/default.json");
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '8000');
 app.set('port', port);
 
 /**
@@ -26,6 +28,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port);
+connectDb()
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -87,4 +90,12 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+}
+
+function connectDb() {
+  mongoose.connect(config.dbUrl, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useFindAndModify: false
+  })
 }

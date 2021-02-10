@@ -1,0 +1,4 @@
+{
+  "dbUrl": "mongodb+srv://vova3500:708p6k@cluster0.nzwel.mongodb.net/education?retryWrites=true&w=majority",
+  "secretKey": "mern-secret-key"
+}
