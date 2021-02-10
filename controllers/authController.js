@@ -28,8 +28,8 @@ class AuthController {
 
             await user.save()
 
-            const token = jwt.sign({id: user.id}, process.env.SECRET_KEY, {expiresIn: "1h"})
-            const refreshToken = jwt.sign({id: user.id}, process.env.SECRET_KEY, {expiresIn: "60 days"})
+            const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: "1h"})
+            const refreshToken = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: "60 days"})
 
             res.cookie("refreshToken", refreshToken)
 
@@ -39,6 +39,39 @@ class AuthController {
                     token,
                     refreshToken
                 })
+
+        } catch (e) {
+            return res.status(400).json(e)
+        }
+    }
+
+    async login(req, res) {
+        try {
+            const {username, password} = req.body
+
+            const user = await User.findOne({username})
+
+            if (!user) {
+                return res.status(404).json({massage: "User not found"})
+            }
+
+            const isPassValid = bcrypt.compareSync(password, user.password)
+            if (!isPassValid) {
+                return res.status(400).json({massage: "Invalid password"})
+            }
+
+            const token = jwt.sign({id: user.id}, process.env.SECRET_KEY, {expiresIn: "1h"})
+            const refreshToken = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: "60 days"})
+
+            res.cookie("refreshToken", refreshToken)
+
+            return res.json(
+                {
+                    UserId: user._id,
+                    token,
+                    refreshToken
+                }
+            )
 
         } catch (e) {
             return res.status(400).json(e)

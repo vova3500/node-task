@@ -11,6 +11,7 @@ router.post("/registration", [
         .isLength({min: 6, max: 12})
 
 ], authController.registration)
+router.post("/login", authController.login)
 
 
 module.exports = router;
