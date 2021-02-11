@@ -34,19 +34,23 @@
 
 <h2>Made</h2>
 <h3>Registration</h3>
-![Form login](readme/registration.png "Registration")
+
+![Registration](readme/registration.png "Registration")
 
 <h3>Login</h3>
-![Form login](readme/login.png "Login")
+
+![Login](readme/login.png "Login")
 
 <h3>Get all users</h3>
-![Form login](readme/getUsers.png "GetUsers")
+![GetUsers](readme/getUsers.png "GetUsers")
 
 <h3>Get one user</h3>
-![Form login](readme/getUser.png "GetUser")
+
+![GetUser](readme/getUser.png "GetUser")
 
 <h3>ReAuth</h3>
-![Form login](readme/reAuth.png "ReAuth")
+
+![ReAuth](readme/reAuth.png "ReAuth")
 
 <h2>Project setup</h2>
 
