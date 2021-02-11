@@ -29,7 +29,7 @@ class AuthController {
             await user.save()
 
             const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: "1h"})
-            const refreshToken = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: "60 days"})
+            const refreshToken = jwt.sign({id: user._id}, process.env.SECRET_KEY_REFRESH_TOKEN, {expiresIn: "60 days"})
 
             res.cookie("refreshToken", refreshToken)
 
@@ -61,7 +61,7 @@ class AuthController {
             }
 
             const token = jwt.sign({id: user.id}, process.env.SECRET_KEY, {expiresIn: "1h"})
-            const refreshToken = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: "60 days"})
+            const refreshToken = jwt.sign({id: user._id}, process.env.SECRET_KEY_REFRESH_TOKEN, {expiresIn: "60 days"})
 
             res.cookie("refreshToken", refreshToken)
 
