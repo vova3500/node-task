@@ -42,6 +42,7 @@
 ![Login](readme/login.png "Login")
 
 <h3>Get all users</h3>
+
 ![GetUsers](readme/getUsers.png "GetUsers")
 
 <h3>Get one user</h3>
