@@ -28,8 +28,14 @@ class AuthController {
 
             await user.save()
 
-            const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: "1h"})
-            const refreshToken = jwt.sign({id: user._id}, process.env.SECRET_KEY_REFRESH_TOKEN, {expiresIn: "60 days"})
+            const token = jwt.sign(
+                {id: user._id},
+                process.env.SECRET_KEY,
+                {expiresIn: "1h"})
+
+            const refreshToken = jwt.sign({id: user._id},
+                process.env.SECRET_KEY_REFRESH_TOKEN,
+                {expiresIn: "60 days"})
 
             res.cookie("refreshToken", refreshToken)
 
@@ -60,8 +66,15 @@ class AuthController {
                 return res.status(400).json({massage: "Invalid password"})
             }
 
-            const token = jwt.sign({id: user.id}, process.env.SECRET_KEY, {expiresIn: "1h"})
-            const refreshToken = jwt.sign({id: user._id}, process.env.SECRET_KEY_REFRESH_TOKEN, {expiresIn: "60 days"})
+            const token = jwt.sign(
+                {id: user.id},
+                process.env.SECRET_KEY,
+                {expiresIn: "1h"})
+
+            const refreshToken = jwt.sign(
+                {id: user._id},
+                process.env.SECRET_KEY_REFRESH_TOKEN,
+                {expiresIn: "60 days"})
 
             res.cookie("refreshToken", refreshToken)
 
@@ -77,6 +90,23 @@ class AuthController {
             return res.status(400).json(e)
         }
     }
+
+    async reAuth(req, res) {
+        try {
+            const token = jwt.sign(
+                {id: req.user.id},
+                process.env.SECRET_KEY,
+                {expiresIn: "1h"})
+
+            return res.json({
+                token
+            })
+
+        } catch (e) {
+            return res.status(401).json({message: 'Auth error'})
+        }
+    }
+
 }
 
 module.exports = new AuthController

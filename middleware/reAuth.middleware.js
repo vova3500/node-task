@@ -8,9 +8,9 @@ module.exports = (req, res, next) => {
     }
 
     try {
-        const token = req.headers.authorization.split(' ')[1]
+        const refreshToken = req.headers.authorization.split(' ')[1]
 
-        req.user = jwt.verify(token, process.env.SECRET_KEY)
+        req.user = jwt.verify(refreshToken, process.env.SECRET_KEY_REFRESH_TOKEN)
         next()
     } catch (e) {
         return res.status(401).json({message: 'Auth error'})
